@@ -1,0 +1,15 @@
+---
+layout: base.njk
+---
+<main class="note-page">
+  <a class="back-link" href="/">← Back to Strata</a>
+
+  <p class="eyebrow">{{ subject }}{% if date %} · {{ date | readableDate }}{% endif %}</p>
+  <h1>{{ title }}</h1>
+
+  {% if attachment %}
+  <p><a class="back-link" href="{{ attachment }}" download>Download {{ attachment | fileName }}</a></p>
+  {% endif %}
+
+  {{ content | safe }}
+</main>

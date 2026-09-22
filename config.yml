@@ -1,0 +1,42 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded files (PDFs, photos, anything) get stored, and what
+# public URL to use for them once the site is built.
+media_folder: "src/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "notes"
+    label: "Notes"
+    label_singular: "Note"
+    folder: "src/notes"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{subject}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Subject"
+        name: "subject"
+        widget: "select"
+        options:
+          - "Mineralogy"
+          - "Sedimentology"
+          - "Hydrogeology"
+          - "Geochemistry"
+          - "Metamorphic Petrology"
+          - "Economic Geology"
+          - "Other"
+      - { label: "Date", name: "date", widget: "datetime", format: "yyyy-MM-dd" }
+      - label: "Attachment"
+        name: "attachment"
+        widget: "file"
+        required: false
+        hint: "Upload a PDF, photo, HTML file, or any other file for this note."
+      - label: "Note text"
+        name: "body"
+        widget: "markdown"
+        required: false
+        hint: "Type the note directly here, if you don't have a file to attach — or use both."

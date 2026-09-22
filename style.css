@@ -1,0 +1,266 @@
+/* ---------------------------------------------------
+   Tokens
+--------------------------------------------------- */
+:root {
+  --paper: #E7E3D8;
+  --paper-deep: #DCD6C7;
+  --ink: #23241F;
+  --ink-soft: #4A4A42;
+  --rust: #B4552F;
+  --green: #4B5D45;
+  --slate: #56636B;
+  --hairline: #C9C2AE;
+
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
+  --sans: "Work Sans", -apple-system, "Segoe UI", sans-serif;
+
+  --measure: 40em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root { --transition: 160ms ease; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --transition: 0ms; }
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--rust);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--ink); }
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--slate);
+  outline-offset: 3px;
+}
+
+img { max-width: 100%; }
+
+/* ---------------------------------------------------
+   Header
+--------------------------------------------------- */
+.site-header {
+  padding: 4.5rem 1.5rem 3rem;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.site-header h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  line-height: 1.02;
+  margin: 0 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.site-header p {
+  max-width: var(--measure);
+  color: var(--ink-soft);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* A thin strata rule under the header, like a section line on a map */
+.site-header::after {
+  content: "";
+  display: block;
+  height: 6px;
+  margin-top: 3rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--rust) 0 8%,
+    var(--green) 8% 8.4%,
+    var(--slate) 8.4% 16%,
+    var(--rust) 16% 24.4%
+  );
+  background-size: 220px 100%;
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------
+   Stratigraphic column of subjects
+--------------------------------------------------- */
+.column {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 6rem;
+}
+
+.layer {
+  border-top: 1px solid var(--hairline);
+  padding: 2.4rem 0 2.4rem 1.6rem;
+  position: relative;
+}
+
+.layer:first-child { border-top: none; }
+
+.layer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2.4rem;
+  bottom: 2.4rem;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--layer-color, var(--rust));
+}
+
+.layer-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.layer h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.layer .count {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.notes {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.notes li {
+  border-bottom: 1px solid transparent;
+}
+
+.notes a {
+  display: inline-block;
+  padding: 0.15rem 0;
+  font-size: 1.02rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.notes a:hover {
+  border-color: var(--rust);
+}
+
+.note-meta {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}
+
+.layer.placeholder .notes a {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------
+   Footer
+--------------------------------------------------- */
+.site-footer {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  border-top: 1px solid var(--hairline);
+}
+
+/* ---------------------------------------------------
+   Individual note pages
+--------------------------------------------------- */
+.note-page {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 6rem;
+}
+
+.back-link {
+  display: inline-block;
+  font-size: 0.92rem;
+  margin-bottom: 2.5rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+}
+.back-link:hover { border-color: var(--rust); }
+
+.note-page .eyebrow {
+  color: var(--slate);
+  font-size: 0.9rem;
+  margin: 0 0 0.6rem;
+}
+
+.note-page h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  line-height: 1.1;
+  margin: 0 0 1.6rem;
+}
+
+.note-page h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin: 2.2rem 0 0.8rem;
+}
+
+.note-page p, .note-page li {
+  color: var(--ink);
+}
+
+.note-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-page th, .note-page td {
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--hairline);
+}
+.note-page th {
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------
+   Small screens
+--------------------------------------------------- */
+@media (max-width: 30rem) {
+  .site-header { padding: 3rem 1.25rem 2.25rem; }
+  .column { padding: 0 1.25rem 4rem; }
+  .layer { padding-left: 1.1rem; }
+}

@@ -1,0 +1,38 @@
+---
+layout: base.njk
+title: Strata — Field Notes
+description: Geology field notes and teaching material, shared openly with students and the wider geology community.
+---
+{% set subjects = ["Mineralogy", "Sedimentology", "Hydrogeology", "Geochemistry", "Metamorphic Petrology", "Economic Geology", "Other"] %}
+{% set colors = ["var(--rust)", "var(--green)", "var(--slate)"] %}
+
+<header class="site-header">
+  <h1>Strata</h1>
+  <p>Field notes and teaching material, open to students and the wider geology community. New notes are added by the site owner — no coding required — and land at the top of each layer.</p>
+</header>
+
+<main class="column">
+{% for subject in subjects %}
+  {% set subjectNotes = collections.notes | bySubject(subject) %}
+  <section class="layer{% if subjectNotes.length == 0 %} placeholder{% endif %}" style="--layer-color: {{ colors[loop.index0 % 3] }};">
+    <div class="layer-head">
+      <h2>{{ subject }}</h2>
+      <span class="count">{{ subjectNotes.length }} note{% if subjectNotes.length != 1 %}s{% endif %}</span>
+    </div>
+    <ul class="notes">
+      {% for note in subjectNotes %}
+      <li>
+        <a href="{{ note.url }}">{{ note.data.title }}</a>
+        {% if note.data.date %}<span class="note-meta">{{ note.data.date | readableDate }}</span>{% endif %}
+      </li>
+      {% else %}
+      <li><a href="#" aria-disabled="true">No notes yet</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}
+</main>
+
+<footer class="site-footer">
+  <p>Notes are added through <a href="/admin/">the admin panel</a> by the site owner — visitors can browse and download freely, no account needed.</p>
+</footer>
